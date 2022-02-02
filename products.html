@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Document</title>
+    <title>Products</title>
     <!-- Bootstrap CSS -->
     <link
       crossorigin="anonymous"
@@ -54,37 +54,36 @@
                     <span v-else>未啟用</span>
                   </td>
                   <td width="120">
-                    <button @click="openProduct(item)" class="btn btn-primary" type="button">
-                      查看細節
-                    </button>
+                    <button @click="openProduct(item)" class="btn btn-primary" type="button">查看細節</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <p>目前有 <span>{{ products.length }}</span> 項產品</p>
+            <!-- counts form object -->
+            <p>目前有 <span>{{ Object.values(products).length }}</span> 項產品</p>
           </div>
           <div class="col-md-6">
             <h2>單一產品細節</h2>
-            <template v-if="tempProduct.title">
+            <template v-if="singleProduct.title">
               <div class="card mb-3">
-                <img :src="tempProduct.imageUrl" alt="主圖" class="card-img-top primary-image" />
+                <img :src="singleProduct.imageUrl" alt="主圖" class="card-img-top primary-image" />
                 <div class="card-body">
                   <h5 class="card-title">
-                    {{ tempProduct.title }}
-                    <span class="badge bg-primary ms-2">{{ tempProduct.category }}</span>
+                    {{ singleProduct.title }}
+                    <span class="badge bg-primary ms-2">{{ singleProduct.category }}</span>
                   </h5>
-                  <p class="card-text">商品描述：{{ tempProduct.description }}</p>
-                  <p class="card-text">商品內容：{{ tempProduct.content }}</p>
+                  <p class="card-text">商品描述：{{ singleProduct.description }}</p>
+                  <p class="card-text">商品內容：{{ singleProduct.content }}</p>
                   <div class="d-flex">
-                    <p class="card-text me-2">{{ tempProduct.price }}</p>
+                    <p class="card-text me-2">{{ singleProduct.price }}</p>
                     <p class="card-text text-secondary">
-                      <del>{{ tempProduct.origin_price }}</del>
+                      <del>{{ singleProduct.origin_price }}</del>
                     </p>
-                    {{ tempProduct.unit }} / 元
+                    {{ singleProduct.unit }} / 元
                   </div>
                 </div>
               </div>
-              <template :key="id" v-for="(image, id) in tempProduct.imagesUrl">
+              <template :key="id" v-for="(image, id) in singleProduct.imagesUrl">
                 <img :alt="`多圖 ${id+1}`" :src="image" class="images m-2" v-if="image" />
               </template>
             </template>
