@@ -77,9 +77,15 @@
                   <div class="mb-2">
                     <div class="mb-3">
                       <label class="form-label" for="imageUrl">輸入圖片網址</label>
-                      <input class="form-control" placeholder="請輸入圖片連結" type="text" />
+                      <input
+                        class="form-control"
+                        id="imageUrl"
+                        placeholder="請輸入圖片連結"
+                        type="text"
+                        v-model="singleProduct.imageUrl"
+                      />
                     </div>
-                    <img alt="" class="img-fluid" src="" />
+                    <img :src="singleProduct.imageUrl" alt="" class="img-fluid" />
                   </div>
                   <div>
                     <button class="btn btn-outline-primary btn-sm d-block w-100">新增圖片</button>
@@ -91,40 +97,84 @@
                 <div class="col-sm-8">
                   <div class="mb-3">
                     <label class="form-label" for="title">標題</label>
-                    <input class="form-control" id="title" placeholder="請輸入標題" type="text" />
+                    <input
+                      class="form-control"
+                      id="title"
+                      placeholder="請輸入標題"
+                      type="text"
+                      v-model="singleProduct.title"
+                    />
                   </div>
 
                   <div class="row">
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="category">分類</label>
-                      <input class="form-control" id="category" placeholder="請輸入分類" type="text" />
+                      <input
+                        class="form-control"
+                        id="category"
+                        placeholder="請輸入分類"
+                        type="text"
+                        v-model="singleProduct.category"
+                      />
                     </div>
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="price">單位</label>
-                      <input class="form-control" id="unit" placeholder="請輸入單位" type="text" />
+                      <input
+                        class="form-control"
+                        id="unit"
+                        placeholder="請輸入單位"
+                        type="text"
+                        v-model="singleProduct.unit"
+                      />
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="origin_price">原價</label>
-                      <input class="form-control" id="origin_price" min="0" placeholder="請輸入原價" type="number" />
+                      <input
+                        class="form-control"
+                        id="origin_price"
+                        min="0"
+                        placeholder="請輸入原價"
+                        type="number"
+                        v-model.number="singleProduct.origin_price"
+                      />
                     </div>
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="price">售價</label>
-                      <input class="form-control" id="price" min="0" placeholder="請輸入售價" type="number" />
+                      <input
+                        class="form-control"
+                        id="price"
+                        min="0"
+                        placeholder="請輸入售價"
+                        type="number"
+                        v-model.number="singleProduct.price"
+                      />
                     </div>
                   </div>
                   <hr />
 
                   <div class="mb-3">
                     <label class="form-label" for="description">產品描述</label>
-                    <textarea class="form-control" id="description" placeholder="請輸入產品描述" type="text">
+                    <textarea
+                      class="form-control"
+                      id="description"
+                      placeholder="請輸入產品描述"
+                      type="text"
+                      v-model="singleProduct.description"
+                    >
                     </textarea>
                   </div>
                   <div class="mb-3">
                     <label class="form-label" for="content">說明內容</label>
-                    <textarea class="form-control" id="description" placeholder="請輸入說明內容" type="text">
+                    <textarea
+                      class="form-control"
+                      id="description"
+                      placeholder="請輸入說明內容"
+                      type="text"
+                      v-model="singleProduct.content"
+                    >
                     </textarea>
                   </div>
                   <div class="mb-3">
@@ -135,6 +185,7 @@
                         class="form-check-input"
                         id="is_enabled"
                         type="checkbox"
+                        v-model="singleProduct.is_enabled"
                       />
                       <label class="form-check-label" for="is_enabled">是否啟用</label>
                     </div>
