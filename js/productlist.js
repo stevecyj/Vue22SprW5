@@ -58,6 +58,11 @@ const app = createApp({
       // console.log(item);
       this.singleProduct = item;
     },
+
+    // open modal
+    openModal() {
+      productModal.show();
+    },
   },
   mounted() {
     this.checkLogin();
