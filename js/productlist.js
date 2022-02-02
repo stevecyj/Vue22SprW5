@@ -3,6 +3,8 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue
 const site = 'https://vue3-course-api.hexschool.io/v2';
 const api_path = 'steve-vue';
 
+let productModal = {};
+
 const app = createApp({
   data() {
     // 這裡務必使用 function return
@@ -59,6 +61,10 @@ const app = createApp({
   },
   mounted() {
     this.checkLogin();
+
+    productModal = new bootstrap.Modal(document.getElementById('productModal'), {
+      keyboard: false,
+    });
   },
 });
 
