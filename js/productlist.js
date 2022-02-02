@@ -11,7 +11,9 @@ const app = createApp({
     return {
       // 先定義資料
       products: [],
-      singleProduct: {},
+      singleProduct: {
+        imageUrl: [],
+      },
     };
   },
   methods: {
