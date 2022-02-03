@@ -3,7 +3,9 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue
 const site = 'https://vue3-course-api.hexschool.io/v2';
 const api_path = 'steve-vue';
 
+// 建立 Modal
 let productModal = {};
+let delProductModal = {};
 
 const app = createApp({
   data() {
@@ -62,19 +64,29 @@ const app = createApp({
       this.singleProduct = item;
     },
 
-    // open modal
+    // open modal，判斷新增或
     openModal(status, product) {
-      this.isNew = true;
-      if (status === 'edit') {
-        // console.log(Object.entries(product));
-        // for 開啟多圖條件
-        Object.entries(product).forEach((item) => {
-          this.singleProduct[item[0]] = item[1];
-          // console.log(this.singleProduct);
-        });
-        this.isNew = false;
+      switch (status) {
+        case 'isNew':
+          this.isNew = true;
+          productModal.show();
+          break;
+        case 'edit':
+          // for 開啟多圖條件
+          Object.entries(product).forEach((item) => {
+            this.singleProduct[item[0]] = item[1];
+            // console.log(this.singleProduct);
+          });
+          this.isNew = false;
+          productModal.show();
+          break;
+        case 'delete':
+          delProductModal.show();
+          this.singleProduct = { ...product };
+          break;
+        default:
+          break;
       }
-      productModal.show();
     },
 
     // 新增、編輯產品
@@ -97,11 +109,31 @@ const app = createApp({
           console.log(err.response);
         });
     },
+
+    // 刪除產品
+    delProduct() {
+      let url = `${site}/api/${api_path}/admin/product/${this.singleProduct.id}`;
+      let method = 'delete';
+
+      axios[method](url)
+        .then((res) => {
+          console.log(res.data);
+          this.getProducts(); // 再拿一次 list
+          delProductModal.hide(); // close modal
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
   },
   mounted() {
     this.checkLogin();
 
     productModal = new bootstrap.Modal(document.getElementById('productModal'), {
+      keyboard: false,
+    });
+
+    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'), {
       keyboard: false,
     });
 
