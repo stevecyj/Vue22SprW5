@@ -14,6 +14,7 @@ const app = createApp({
       singleProduct: {
         imagesUrl: [],
       },
+      isNew: false,
     };
   },
   methods: {
@@ -63,29 +64,30 @@ const app = createApp({
 
     // open modal
     openModal(status, product) {
-      // console.log(status, product);
+      this.isNew = true;
       if (status === 'edit') {
-        console.log(Object.entries(product));
+        // console.log(Object.entries(product));
+        // for 開啟多圖條件
         Object.entries(product).forEach((item) => {
           this.singleProduct[item[0]] = item[1];
           // console.log(this.singleProduct);
         });
-        // this.singleProduct.imagesUrl = [];
+        this.isNew = false;
       }
       productModal.show();
     },
 
-    // event when hidden modal
-    hiddenModal(modalInstance) {
-      console.log(modalInstance);
-    },
+    // 新增、編輯產品
+    updateProduct() {
+      let url = `${site}/api/${api_path}/admin/product`;
+      let method = 'post';
 
-    // 新增產品
-    addProduct() {
-      const url = `${site}/api/${api_path}/admin/product`;
+      if (!this.isNew) {
+        url = `${site}/api/${api_path}/admin/product/${this.singleProduct.id}`;
+        method = 'put';
+      }
 
-      axios
-        .post(url, { data: this.singleProduct })
+      axios[method](url, { data: this.singleProduct })
         .then((res) => {
           console.log(res.data);
           this.getProducts(); // 再拿一次 list

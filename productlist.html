@@ -69,7 +69,8 @@
           <div class="modal-content border-0">
             <div class="modal-header bg-dark text-white">
               <h5 class="modal-title" id="productModalLabel">
-                <span>新增產品</span>
+                <span v-if="isNew">新增產品</span>
+                <span v-else>編輯產品</span>
               </h5>
               <button aria-label="Close" class="btn-close" type="button" data-bs-dismiss="modal"></button>
             </div>
@@ -105,7 +106,7 @@
                         <img :src="singleProduct.imagesUrl[key]" alt="" class="img-fluid" />
                       </template>
 
-                      <!-- 陣列沒有元素時，新增一個。有元素時，檢查最後一個元素有沒有字。透過陣列長度找索引。-->
+                      <!-- 陣列沒有元素時，顯示新增按鈕。有元素時，檢查最後一個元素有沒有字，有內容才顯示按鈕。透過陣列長度找索引。-->
                       <div
                         v-if="!singleProduct.imagesUrl.length||singleProduct.imagesUrl[singleProduct.imagesUrl.length-1]"
                       >
@@ -232,7 +233,7 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
-              <button @click="addProduct" class="btn btn-primary" type="button">確認</button>
+              <button @click="updateProduct" class="btn btn-primary" type="button">確認</button>
             </div>
           </div>
         </div>
