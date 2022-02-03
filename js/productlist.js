@@ -43,7 +43,7 @@ const app = createApp({
         });
     },
 
-    // 取得左方列表
+    // 取得列表
     getProducts(page = 1) {
       // query 參數
       const url = `${site}/api/${api_path}/admin/products/?page=${page}`;
@@ -73,7 +73,7 @@ const app = createApp({
       this.singleProduct = item;
     },
 
-    // open modal，判斷新增或
+    // open modal，判斷新增或編輯
     openModal(status, product) {
       switch (status) {
         case 'isNew':
@@ -134,6 +134,11 @@ const app = createApp({
           console.log(err.response);
         });
     },
+
+    // 清除單筆資料
+    clearSingleProduct() {
+      this.singleProduct = { imagesUrl: [] };
+    },
   },
   mounted() {
     this.checkLogin();
@@ -147,9 +152,29 @@ const app = createApp({
     });
 
     // ref for productModal
+    // this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
+    //   this.singleProduct = { imagesUrl: [] }; // productModal 關閉時清空資料
+    //   this.getProducts();
+    // });
+  },
+});
+
+app.component('productModal', {
+  props: ['singleProduct', 'isNew'],
+  template: `#templateForProductModal`,
+  data() {
+    return {
+      innerProduct: {
+        imagesUrl: [],
+      },
+    };
+  },
+  methods: {},
+  mounted() {
+    // ref for productModal
     this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
-      this.singleProduct = { imagesUrl: [] }; // productModal 關閉時清空資料
-      this.getProducts();
+      this.$emit('clear-single-product'); // productModal 關閉時清空資料
+      console.log(123);
     });
   },
 });

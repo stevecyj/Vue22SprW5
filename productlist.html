@@ -57,16 +57,57 @@
           </tbody>
         </table>
 
-        <!-- pagination start -->
+        <!-- component pagination start -->
         <!-- props 內層：pages，外層：pagination -->
         <!-- emit 內層：get-product，外層：getProducts -->
-        <pagination :pages="pagination" @get-product="getProducts"></pagination>
-        <!-- pagination end -->
+        <pagination :pages="pagination" @get-products="getProducts"></pagination>
+        <!-- component pagination end -->
       </div>
       <!-- product list end -->
 
-      <!-- Modal start-->
+      <!-- component Modal start-->
+      <product-modal
+        :is-New="isNew"
+        :single-product="singleProduct"
+        @clear-single-product="clearSingleProduct"
+        @get-products="getProducts"
+        @update-product="updateProduct"
+      ></product-modal>
+
       <div
+        aria-hidden="true"
+        aria-labelledby="delProductModalLabel"
+        class="modal fade"
+        id="delProductModal"
+        ref="delProductModal"
+        tabindex="-1"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content border-0">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="delProductModalLabel">
+                <span>刪除產品</span>
+              </h5>
+              <button aria-label="Close" class="btn-close" type="button" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              是否刪除
+              <!-- 產品名稱 -->
+              <strong class="text-danger">{{singleProduct.title}}</strong> 商品(刪除後將無法恢復)。
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
+              <button @click="delProduct" class="btn btn-danger" type="button">確認刪除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal end-->
+    </div>
+
+    <!-- ProductModal x-template -->
+    <script id="templateForProductModal" type="text/x-template">
+        <div
         aria-hidden="true"
         aria-labelledby="productModalLabel"
         class="modal fade"
@@ -242,41 +283,12 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
-              <button @click="updateProduct" class="btn btn-primary" type="button">確認</button>
+              <button @click="this.$emit('update-product')" class="btn btn-primary" type="button">確認</button>
             </div>
           </div>
         </div>
       </div>
-      <div
-        aria-hidden="true"
-        aria-labelledby="delProductModalLabel"
-        class="modal fade"
-        id="delProductModal"
-        ref="delProductModal"
-        tabindex="-1"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content border-0">
-            <div class="modal-header bg-danger text-white">
-              <h5 class="modal-title" id="delProductModalLabel">
-                <span>刪除產品</span>
-              </h5>
-              <button aria-label="Close" class="btn-close" type="button" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-              是否刪除
-              <!-- 產品名稱 -->
-              <strong class="text-danger">{{singleProduct.title}}</strong> 商品(刪除後將無法恢復)。
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
-              <button @click="delProduct" class="btn btn-danger" type="button">確認刪除</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal end-->
-    </div>
+    </script>
     <!-- JavaScript Bundle with Popper -->
     <script
       crossorigin="anonymous"
