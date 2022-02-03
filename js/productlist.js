@@ -62,8 +62,17 @@ const app = createApp({
     },
 
     // open modal
-    openModal() {
+    openModal(status, product) {
+      console.log(status, product);
+      if (status === 'edit') {
+        this.singleProduct = product;
+      }
       productModal.show();
+    },
+
+    // event when hidden modal
+    hiddenModal(modalInstance) {
+      console.log(modalInstance);
     },
 
     // 新增產品
@@ -87,6 +96,11 @@ const app = createApp({
 
     productModal = new bootstrap.Modal(document.getElementById('productModal'), {
       keyboard: false,
+    });
+
+    // ref for productModal
+    this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
+      this.singleProduct = { imageUrl: [] }; // productModal 關閉時清空資料
     });
   },
 });

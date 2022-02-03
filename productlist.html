@@ -45,7 +45,9 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <button @click="openModal('edit')" class="btn btn-outline-primary btn-sm" type="button">編輯</button>
+                  <button @click="openModal('edit',item)" class="btn btn-outline-primary btn-sm" type="button">
+                    編輯
+                  </button>
                   <button class="btn btn-outline-danger btn-sm" type="button">刪除</button>
                 </div>
               </td>
@@ -77,7 +79,7 @@
                   <div class="mb-2">
                     <!-- 加入圖片 -->
                     <div class="mb-3">
-                      <label class="form-label" for="imageUrl">輸入圖片網址</label>
+                      <label class="form-label" for="imageUrl">輸入主要圖片網址</label>
                       <input
                         class="form-control"
                         id="imageUrl"
@@ -91,6 +93,7 @@
                   <!-- 多圖 start-->
                   <div class="mb-3">
                     <div v-if="Array.isArray(singleProduct.imageUrl)">
+                      <h5>設定多張圖片</h5>
                       <template :key="key+'12345'" v-for="(img,key) in singleProduct.imageUrl">
                         <input
                           class="form-control"
