@@ -12,7 +12,7 @@ const app = createApp({
       // 先定義資料
       products: [],
       singleProduct: {
-        imageUrl: [],
+        imagesUrl: [],
       },
     };
   },
@@ -63,9 +63,14 @@ const app = createApp({
 
     // open modal
     openModal(status, product) {
-      console.log(status, product);
+      // console.log(status, product);
       if (status === 'edit') {
-        this.singleProduct = product;
+        console.log(Object.entries(product));
+        Object.entries(product).forEach((item) => {
+          this.singleProduct[item[0]] = item[1];
+          // console.log(this.singleProduct);
+        });
+        // this.singleProduct.imagesUrl = [];
       }
       productModal.show();
     },
@@ -100,7 +105,8 @@ const app = createApp({
 
     // ref for productModal
     this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
-      this.singleProduct = { imageUrl: [] }; // productModal 關閉時清空資料
+      this.singleProduct = { imagesUrl: [] }; // productModal 關閉時清空資料
+      this.getProducts();
     });
   },
 });
