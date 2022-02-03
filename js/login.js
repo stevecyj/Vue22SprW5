@@ -21,7 +21,7 @@ const app = createApp({
           // 取出 token, 到期日
           const { token, expired } = res.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
-          window.location = '../products.html';
+          window.location = './products.html';
         })
         .catch((err) => {
           console.log(err.response);
