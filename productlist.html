@@ -67,7 +67,8 @@
 
       <!-- component Modal start-->
       <product-modal
-        :is-New="isNew"
+        :is-new="isNew"
+        :pages="pagination"
         :single-product="singleProduct"
         @clear-single-product="clearSingleProduct"
         @get-products="getProducts"

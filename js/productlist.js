@@ -160,7 +160,7 @@ const app = createApp({
 });
 
 app.component('productModal', {
-  props: ['singleProduct', 'isNew'],
+  props: ['singleProduct', 'isNew', 'pages'],
   template: `#templateForProductModal`,
   data() {
     return {
@@ -174,7 +174,8 @@ app.component('productModal', {
     // ref for productModal
     this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
       this.$emit('clear-single-product'); // productModal 關閉時清空資料
-      console.log(123);
+      this.$emit('get-products', this.pages.current_page);
+      // console.log('close productModal');
     });
   },
 });
