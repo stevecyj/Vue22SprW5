@@ -58,8 +58,9 @@
         </table>
 
         <!-- pagination start -->
-        <!-- 內層：pages，外層：pagination -->
-        <pagination :pages="pagination"></pagination>
+        <!-- props 內層：pages，外層：pagination -->
+        <!-- emit 內層：get-product，外層：getProducts -->
+        <pagination :pages="pagination" @get-product="getProducts"></pagination>
         <!-- pagination end -->
       </div>
       <!-- product list end -->
