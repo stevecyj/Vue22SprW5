@@ -20,7 +20,7 @@
       <!-- product list start-->
       <div class="container">
         <div class="text-end mt-4">
-          <button @click="openModal" class="btn btn-primary" type="button">建立新的產品</button>
+          <button @click="openModal('isNew')" class="btn btn-primary" type="button">建立新的產品</button>
         </div>
         <table class="table mt-4">
           <thead>
@@ -37,15 +37,15 @@
             <tr :key="item.id" v-for="item in products">
               <td>{{item.category}}</td>
               <td>{{item.title}}</td>
-              <td class="text-end">{{item.origin_price}}</td>
-              <td class="text-end">{{item.price}}</td>
+              <td class="text-start">{{item.origin_price}}</td>
+              <td class="text-start">{{item.price}}</td>
               <td>
                 <span class="text-success" v-if="item.is_enabled">啟用</span>
                 <span v-else>未啟用</span>
               </td>
               <td>
                 <div class="btn-group">
-                  <button class="btn btn-outline-primary btn-sm" type="button">編輯</button>
+                  <button @click="openModal('edit')" class="btn btn-outline-primary btn-sm" type="button">編輯</button>
                   <button class="btn btn-outline-danger btn-sm" type="button">刪除</button>
                 </div>
               </td>
@@ -227,7 +227,7 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
-              <button class="btn btn-primary" type="button">確認</button>
+              <button @click="addProduct" class="btn btn-primary" type="button">確認</button>
             </div>
           </div>
         </div>

@@ -65,6 +65,22 @@ const app = createApp({
     openModal() {
       productModal.show();
     },
+
+    // 新增產品
+    addProduct() {
+      const url = `${site}/api/${api_path}/admin/product`;
+
+      axios
+        .post(url, { data: this.singleProduct })
+        .then((res) => {
+          console.log(res.data);
+          this.getProducts(); // 再拿一次 list
+          productModal.hide(); // close modal
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
   },
   mounted() {
     this.checkLogin();
