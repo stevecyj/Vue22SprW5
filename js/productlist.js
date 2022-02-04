@@ -165,7 +165,13 @@ app.component('productModal', {
       },
     };
   },
-  methods: {},
+  methods: {
+    // 刪除單張圖片
+    delImg(key) {
+      // console.log(key);
+      this.singleProduct.imagesUrl.splice(key, 1);
+    },
+  },
   mounted() {
     // ref for productModal
     this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {

@@ -126,12 +126,22 @@
                       <h5>設定多張圖片</h5>
                       <template :key="key+'12345'" v-for="(img,key) in singleProduct.imagesUrl">
                         <input
-                          class="form-control"
+                          class="form-control mt-3"
                           placeholder="請輸入圖片連結"
                           type="text"
                           v-model="singleProduct.imagesUrl[key]"
                         />
                         <img :src="singleProduct.imagesUrl[key]" alt="" class="img-fluid" />
+                        <div>
+                        <button
+                          @click="delImg(key)"
+                          class="btn btn-outline-danger btn-sm d-block w-100 mb-3"
+                          type="button"
+                          v-if="singleProduct.imagesUrl[singleProduct.imagesUrl.length-1]"
+                        >
+                          刪除此張圖片
+                        </button>
+                      </div>
                       </template>
 
                       <!-- 陣列沒有元素時，顯示新增按鈕。有元素時，檢查最後一個元素有沒有字，有內容才顯示按鈕。透過陣列長度找索引。-->
