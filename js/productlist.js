@@ -1,5 +1,6 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
 import pagination from './pagination.js';
+import deleteProductModal from './delProductModal.js';
 
 const site = 'https://vue3-course-api.hexschool.io/v2';
 const api_path = 'steve-vue';
@@ -11,6 +12,7 @@ let delProductModal = {};
 const app = createApp({
   components: {
     pagination,
+    deleteProductModal,
   },
   data() {
     // 這裡務必使用 function return
@@ -150,12 +152,6 @@ const app = createApp({
     delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'), {
       keyboard: false,
     });
-
-    // ref for productModal
-    // this.$refs.productModal.addEventListener('hidden.bs.modal', (event) => {
-    //   this.singleProduct = { imagesUrl: [] }; // productModal 關閉時清空資料
-    //   this.getProducts();
-    // });
   },
 });
 

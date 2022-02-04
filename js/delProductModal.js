@@ -1,15 +1,7 @@
-# Vue22SprW4
-
-- [page](https://stevecyj.github.io/Vue22SprW4/login.html)
-
-## Delete Modal
-
-<details>
-
-<summary>Click to expand!</summary>
-
-```
-      <div
+export default {
+  props: ['singleProduct'],
+  template: `
+        <div
         aria-hidden="true"
         aria-labelledby="delProductModalLabel"
         class="modal fade"
@@ -32,11 +24,16 @@
             </div>
             <div class="modal-footer">
               <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">取消</button>
-              <button @click="delProduct" class="btn btn-danger" type="button">確認刪除</button>
+              <button @click="$emit('del-product')" class="btn btn-danger" type="button">確認刪除</button>
             </div>
           </div>
         </div>
       </div>
-```
-
-</details>
+  `,
+  mounted() {
+    this.$refs.delProductModal.addEventListener('hidden.bs.modal', (event) => {
+      console.log('delProductModal close');
+      this.$emit('clear-single-product'); // productModal 關閉時清空資料
+    });
+  },
+};
