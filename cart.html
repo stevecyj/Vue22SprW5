@@ -59,8 +59,14 @@
                       <i class="fas fa-spinner fa-pulse"></i>
                       查看更多
                     </button>
-                    <button @click="addToCart(product.id)" class="btn btn-outline-danger" type="button">
-                      <i class="fas fa-spinner fa-pulse"></i>
+                    <button
+                      :disabled="isLoadingItem===product.id"
+                      @click="addToCart(product.id)"
+                      class="btn btn-outline-danger"
+                      type="button"
+                    >
+                      <div class="spinner-grow spinner-grow-sm" v-show="isLoadingItem===product.id"></div>
+                      <!-- <i class="fas fa-spinner fa-pulse"></i> -->
                       加到購物車
                     </button>
                   </div>
