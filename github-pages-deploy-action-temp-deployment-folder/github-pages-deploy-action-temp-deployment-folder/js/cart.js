@@ -43,6 +43,7 @@ app.component('product-modal', {
   data() {
     return {
       modal: {}, // 讓 methods 可以取用 modal
+      product: {},
     };
   },
   watch: {
@@ -64,8 +65,8 @@ app.component('product-modal', {
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
-          console.log(res);
-          this.products = res.data.products;
+          // console.log(res);
+          this.product = res.data.product;
         })
         .catch((err) => {
           console.error(err.response);
