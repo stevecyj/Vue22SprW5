@@ -1,4 +1,4 @@
-/* global axios */
+/* global axios bootstrap */
 // eslint-disable-next-line
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
 
@@ -25,9 +25,36 @@ const app = createApp({
           console.error(err.response);
         });
     },
+    openProductModal() {
+      this.$refs.productModal.openModal();
+    },
   },
   mounted() {
     this.getProducts();
+  },
+});
+
+// product modal, $refs
+app.component('product-modal', {
+  template: '#userProductModal',
+  data() {
+    return {
+      modal: {}, // 讓 methods 可以取用 modal
+    };
+  },
+  methods: {
+    // 開啟 modal
+    openModal() {
+      this.modal.show();
+    },
+  },
+  mounted() {
+    this.modal = new bootstrap.Modal(this.$refs.modal, {
+      keyboard: false,
+    });
+
+    // test modal is usable or not
+    // myModal.show();
   },
 });
 
