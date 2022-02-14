@@ -104,7 +104,18 @@
                   <td>
                     <div class="input-group input-group-sm">
                       <div class="input-group mb-3">
-                        <input class="form-control" min="1" type="number" v-model="item.qty" />
+                        <!-- 要相信使用者一定會亂填，改用 select -->
+                        <!-- <input class="form-control" min="1" type="number" v-model="item.qty" /> -->
+                        <select
+                          :disabled="isLoadingItem === item.id"
+                          @change="updateCartItem(item)"
+                          class="form-select"
+                          id=""
+                          v-model="item.qty"
+                        >
+                          <!-- 上一個 commit 的做法，qty：當前在購物車的數量，num：迴圈的值，2個值一樣就選這個值，也可以綁在 select 的 tag 上-->
+                          <option :key="`${num}${item.id}`" :value="num" v-for="num in 20">{{num}}</option>
+                        </select>
                         <span class="input-group-text" id="basic-addon2">{{ item.product.unit }}</span>
                       </div>
                     </div>
