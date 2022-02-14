@@ -28,6 +28,7 @@
 
           <table class="table align-middle">
             <thead>
+              <!-- render product list -->
               <tr>
                 <th>圖片</th>
                 <th>商品名稱</th>
@@ -36,15 +37,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr :key="product.id" v-for="product in products">
                 <td style="width: 200px">
-                  <div style="height: 100px; background-size: cover; background-position: center"></div>
+                  <!-- 背景圖 -->
+                  <div
+                    :style="{ backgroundImage: `url(${product.imageUrl})` }"
+                    style="height: 100px; background-size: cover; background-position: center"
+                  ></div>
                 </td>
-                <td>{{ }}</td>
+                <td>{{ product.title }}</td>
                 <td>
-                  <div class="h5">{{ }} 元</div>
-                  <del class="h6">原價 {{ }} 元</del>
-                  <div class="h5">現在只要 {{ }} 元</div>
+                  <div class="h5" v-if="product.price===product.origin_price">{{ product.price }} 元</div>
+                  <div v-else>
+                    <del class="h6">原價 {{ product.origin_price }} 元</del>
+                    <div class="h5">現在只要 {{ product.price }} 元</div>
+                  </div>
                 </td>
                 <td>
                   <div class="btn-group btn-group-sm">

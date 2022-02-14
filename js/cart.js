@@ -19,6 +19,7 @@ const app = createApp({
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
           console.log(res);
+          this.products = res.data.products;
         })
         .catch((err) => {
           console.error(err.response);
