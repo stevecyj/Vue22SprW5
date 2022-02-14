@@ -19,7 +19,7 @@ const app = createApp({
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.products = res.data.products;
         })
         .catch((err) => {
@@ -30,9 +30,24 @@ const app = createApp({
       this.productId = id;
       this.$refs.productModal.openModal();
     },
+
+    // 取得購物車資料
+    getCart() {
+      const apiUrl = `/v2/api/${apiPath}/cart`;
+      axios
+        .get(`${site}${apiUrl}`, {})
+        .then((res) => {
+          console.log('cart', res);
+          this.cartData = res.data.data;
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
+    },
   },
   mounted() {
     this.getProducts();
+    this.getCart();
   },
 });
 
@@ -65,8 +80,8 @@ app.component('product-modal', {
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
-          // console.log(res);
-          this.product = res.data.product;
+          console.log(res);
+          // this.product = res.data.product;
         })
         .catch((err) => {
           console.error(err.response);

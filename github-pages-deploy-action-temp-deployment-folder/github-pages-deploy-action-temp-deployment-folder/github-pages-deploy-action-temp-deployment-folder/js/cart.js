@@ -11,6 +11,7 @@ const app = createApp({
       cartData: {},
       products: [],
       productId: '',
+      isLoadingItem: '',
     };
   },
   methods: {
@@ -52,6 +53,7 @@ const app = createApp({
         product_id: id,
         qty,
       };
+      this.isLoadingItem = id;
       axios
         .post(`${site}${apiUrl}`, {
           data,
@@ -59,6 +61,7 @@ const app = createApp({
         .then((res) => {
           console.log('addToCart', res);
           this.getCart();
+          this.isLoadingItem = '';
         })
         .catch((err) => {
           console.error(err.response);
