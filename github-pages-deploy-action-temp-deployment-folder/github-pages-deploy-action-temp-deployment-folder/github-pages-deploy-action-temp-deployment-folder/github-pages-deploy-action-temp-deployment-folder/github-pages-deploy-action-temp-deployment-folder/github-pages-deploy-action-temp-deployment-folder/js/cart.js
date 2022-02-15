@@ -44,6 +44,26 @@ const app = createApp({
           console.error(err.response);
         });
     },
+
+    // 加入購物車
+    addToCart(id, qty = 1) {
+      const apiUrl = `/v2/api/${apiPath}/cart`;
+      const data = {
+        product_id: id,
+        qty,
+      };
+      axios
+        .post(`${site}${apiUrl}`, {
+          data,
+        })
+        .then((res) => {
+          console.log('addToCart', res);
+          this.getCart();
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
+    },
   },
   mounted() {
     this.getProducts();
