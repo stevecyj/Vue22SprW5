@@ -23,7 +23,7 @@
       <div class="container">
         <div class="mt-4">
           <!-- 產品Modal -->
-          <product-modal :id="productId" @add-cart="addToCart" ref="productModal"></product-modal>
+          <product-modal :id="productId" :prodQty="productQty" @add-cart="addToCart" ref="productModal"></product-modal>
           <!-- 產品Modal -->
 
           <table class="table align-middle">
@@ -107,7 +107,7 @@
                     <div class="input-group input-group-sm">
                       <div class="input-group mb-3">
                         <!-- 要相信使用者一定會亂填，改用 select -->
-                        <!-- <input class="form-control" min="1" type="number" v-model="item.qty" /> -->
+                        <input class="form-control" min="1" type="number" v-model="item.qty" />
                         <select
                           :disabled="isLoadingItem === item.id"
                           @change="updateCartItem(item)"
@@ -222,7 +222,7 @@
         </div>
       </div>
     </div>
-    <!-- userProduct Modal start -->
+    <!-- user ProductModal start -->
     <script id="userProductModal" type="text/x-template">
       <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
@@ -260,7 +260,7 @@
             </div>
             </div>
     </script>
-    <!-- userProduct Modal end -->
+    <!-- user ProductModal end -->
     <!-- JavaScript Bundle with Popper -->
     <script
       crossorigin="anonymous"
