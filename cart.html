@@ -207,7 +207,15 @@
               <textarea class="form-control" cols="30" id="message" rows="10"></textarea>
             </div>
             <div class="text-end">
-              <button class="btn btn-danger" type="submit">送出訂單</button>
+              <!-- {{Object.keys(errors).length}} -->
+              <!-- 逆天可選運算子 -->
+              <button
+                :class="{'disabled': this.cartData.carts?.length === 0 || Object.keys(errors).length !==0 }"
+                class="btn btn-danger"
+                type="submit"
+              >
+                送出訂單
+              </button>
             </div>
           </v-form>
           <!-- form end -->
@@ -264,8 +272,8 @@
       integrity="sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=="
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"
     ></script>
-    <!-- <script src="https://unpkg.com/vue@next"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.3.6/vee-validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.3.6/dist/vee-validate-rules.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.3.6/dist/vee-validate-i18n.min.js"></script>
