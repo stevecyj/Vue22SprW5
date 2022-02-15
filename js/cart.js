@@ -1,11 +1,32 @@
-/* global axios bootstrap */
+/* global axios bootstrap VeeValidate VeeValidateRules VeeValidateI18n Vue */
 // eslint-disable-next-line
-import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
+// import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
+// 之前使用不同的 vue instance
 
 const site = 'https://vue3-course-api.hexschool.io';
 const apiPath = 'steve-vue';
 
-const app = createApp({
+// vee-validate 載入規則
+// VeeValidate.defineRule('email', VeeValidateRules.email);
+// VeeValidate.defineRule('required', VeeValidateRules.required);
+
+// 加入所有規則(CDN版本)
+Object.keys(VeeValidateRules).forEach((rule) => {
+  if (rule !== 'default') {
+    VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+  }
+});
+
+// vee-validate 多國語系
+VeeValidateI18n.loadLocaleFromURL('./js/zh_TW.json');
+
+// vee-validate Activate the locale
+VeeValidate.configure({
+  generateMessage: VeeValidateI18n.localize('zh_TW'),
+  validateOnInput: true, // 調整為輸入字元立即進行驗證
+});
+
+const app = Vue.createApp({
   data() {
     return {
       cartData: {}, // cart 是拿整包資料
@@ -107,6 +128,12 @@ const app = createApp({
           console.error(err.response);
         });
     },
+
+    // validate rule for phone
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+    },
   },
   mounted() {
     this.getProducts();
@@ -187,5 +214,10 @@ app.component('product-modal', {
     // myModal.show();
   },
 });
+
+// 註冊 vee-validate 元件
+app.component('VForm', VeeValidate.Form);
+app.component('VField', VeeValidate.Field);
+app.component('ErrorMessage', VeeValidate.ErrorMessage);
 
 app.mount('#app');
