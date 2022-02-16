@@ -23,11 +23,12 @@
       <div class="container">
         <div class="mt-4">
           <!-- 產品Modal -->
-
+          <product-modal :id="productId" ref="productModal"></product-modal>
           <!-- 產品Modal -->
 
           <table class="table align-middle">
             <thead>
+              <!-- render product list -->
               <tr>
                 <th>圖片</th>
                 <th>商品名稱</th>
@@ -36,19 +37,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr :key="product.id" v-for="product in products">
                 <td style="width: 200px">
-                  <div style="height: 100px; background-size: cover; background-position: center"></div>
+                  <!-- 背景圖 -->
+                  <div
+                    :style="{ backgroundImage: `url(${product.imageUrl})` }"
+                    style="height: 100px; background-size: cover; background-position: center"
+                  ></div>
                 </td>
-                <td>{{ }}</td>
+                <td>{{ product.title }}</td>
                 <td>
-                  <div class="h5">{{ }} 元</div>
-                  <del class="h6">原價 {{ }} 元</del>
-                  <div class="h5">現在只要 {{ }} 元</div>
+                  <div class="h5" v-if="product.price===product.origin_price">{{ product.price }} 元</div>
+                  <div v-else>
+                    <del class="h6">原價 {{ product.origin_price }} 元</del>
+                    <div class="h5">現在只要 {{ product.price }} 元</div>
+                  </div>
                 </td>
                 <td>
                   <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-secondary" type="button">
+                    <button @click="openProductModal(product.id)" class="btn btn-outline-secondary" type="button">
                       <i class="fas fa-spinner fa-pulse"></i>
                       查看更多
                     </button>
@@ -181,6 +188,45 @@
         </div>
       </div>
     </div>
+    <!-- userProduct Modal start -->
+    <script id="userProductModal" type="text/x-template">
+      <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content border-0">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title" id="exampleModalLabel">
+                <span>{{ id }}</span>
+            </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <img class="img-fluid" :src="" alt="">
+            </div>
+                <div class="col-sm-6">
+                  <span class="badge bg-primary rounded-pill">{{  }}</span>
+                  <p>商品描述：{{  }}</p>
+                  <p>商品內容：{{  }}</p>
+                  <div class="h5">{{  }} 元</div>
+                  <del class="h6">原價 {{ }} 元</del>
+                  <div class="h5">現在只要 {{  }} 元</div>
+                  <div>
+                    <div class="input-group">
+                      <input type="number" class="form-control" min="1">
+                      <button type="button" class="btn btn-primary">加入購物車</button>
+            </div>
+            </div>
+            </div>
+                <!-- col-sm-6 end -->
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+    </script>
+    <!-- userProduct Modal end -->
     <!-- JavaScript Bundle with Popper -->
     <script
       crossorigin="anonymous"

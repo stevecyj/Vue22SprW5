@@ -158,6 +158,23 @@ const app = Vue.createApp({
         });
     },
 
+    // 清空購物車
+    clearCarts() {
+      const apiUrl = `/v2/api/${apiPath}/carts`;
+
+      // this.isLoadingItem = id;
+      axios
+        .delete(`${site}${apiUrl}`)
+        .then((res) => {
+          // console.log('clearCarts', res);
+          this.getCart();
+          // this.isLoadingItem = '';
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
+    },
+
     // validate rule for phone
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
