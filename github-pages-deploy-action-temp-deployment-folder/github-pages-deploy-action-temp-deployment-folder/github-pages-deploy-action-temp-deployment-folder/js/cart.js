@@ -1,4 +1,4 @@
-/* global axios bootstrap VeeValidate VeeValidateRules VeeValidateI18n Vue */
+/* global axios bootstrap VeeValidate VeeValidateRules VeeValidateI18n Vue VueLoading */
 // eslint-disable-next-line
 // import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
 // 之前使用不同的 vue instance
@@ -34,6 +34,8 @@ const app = Vue.createApp({
       productId: '',
       productQty: 'aaaa',
       isLoadingItem: '',
+      isLoading: false,
+      fullPage: true,
     };
   },
   computed: {
@@ -162,13 +164,13 @@ const app = Vue.createApp({
     clearCarts() {
       const apiUrl = `/v2/api/${apiPath}/carts`;
 
-      // this.isLoadingItem = id;
+      this.isLoading = true;
       axios
         .delete(`${site}${apiUrl}`)
         .then((res) => {
           // console.log('clearCarts', res);
           this.getCart();
-          // this.isLoadingItem = '';
+          this.isLoading = false;
         })
         .catch((err) => {
           console.error(err.response);
@@ -266,5 +268,9 @@ app.component('product-modal', {
 app.component('VForm', VeeValidate.Form);
 app.component('VField', VeeValidate.Field);
 app.component('ErrorMessage', VeeValidate.ErrorMessage);
+
+// vue-loading-overlay
+app.use(VueLoading.Plugin);
+app.component('VLoading', VueLoading.Component);
 
 app.mount('#app');
