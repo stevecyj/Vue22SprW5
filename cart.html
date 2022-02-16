@@ -82,7 +82,9 @@
           </table>
           <!-- 購物車列表 -->
           <div class="text-end">
-            <button :disabled="cartData.carts <= 1" class="btn btn-outline-danger" type="button">清空購物車</button>
+            <button :disabled="cartData.carts <= 1" @click="clearCarts" class="btn btn-outline-danger" type="button">
+              清空購物車
+            </button>
           </div>
 
           <!-- {{cartData}} -->
@@ -246,11 +248,13 @@
             </div>
                 <div class="col-sm-6">
                   <span class="badge bg-primary rounded-pill">{{  }}</span>
-                  <p>商品描述：{{  }}</p>
-                  <p>商品內容：{{  }}</p>
-                  <div class="h5">{{  }} 元</div>
-                  <del class="h6">原價 {{ }} 元</del>
-                  <div class="h5">現在只要 {{  }} 元</div>
+                  <p>商品描述：{{ product.description }}</p>
+                  <p>商品內容：{{ product.content }}</p>
+                  <div class="h5" v-if="product.price===product.origin_price">{{ product.price }} 元</div>
+                  <div v-else>
+                    <del class="h6">原價 {{ product.origin_price }} 元</del>
+                    <div class="h5">現在只要 {{ product.price }} 元</div>
+                  </div>
                   <div>
                     <div class="input-group">
                       <input type="number" class="form-control" min="1" v-model="qty">
