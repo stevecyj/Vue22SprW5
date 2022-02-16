@@ -45,10 +45,31 @@ app.component('product-modal', {
       modal: {}, // 讓 methods 可以取用 modal
     };
   },
+  watch: {
+    // id 改變時，取得該商品資料
+    id() {
+      this.getProduct();
+    },
+  },
   methods: {
     // 開啟 modal
     openModal() {
       this.modal.show();
+    },
+
+    // 在 product modal 取得遠端資料(code snippet from Hakka copy)
+    getProduct() {
+      // api for 取得單一品項資料
+      const apiUrl = `/v2/api/${apiPath}/product/${this.id}`;
+      axios
+        .get(`${site}${apiUrl}`, {})
+        .then((res) => {
+          console.log(res);
+          this.products = res.data.products;
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
     },
   },
   mounted() {
