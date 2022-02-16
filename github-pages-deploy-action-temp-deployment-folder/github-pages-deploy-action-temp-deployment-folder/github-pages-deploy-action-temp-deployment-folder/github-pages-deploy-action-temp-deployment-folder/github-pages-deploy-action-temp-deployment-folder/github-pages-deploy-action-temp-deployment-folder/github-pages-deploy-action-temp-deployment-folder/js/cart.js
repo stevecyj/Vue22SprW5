@@ -35,6 +35,13 @@ const app = Vue.createApp({
       isLoadingItem: '',
     };
   },
+  computed: {
+    // classObject() {
+    //   return {
+    //     disabled: this.cartData.carts?.length === 0 || Object.keys(errors).length !== 0, // 逆天可選鍊運算子
+    //   };
+    // },
+  },
   methods: {
     getProducts() {
       const apiUrl = `/v2/api/${apiPath}/products/all`;
@@ -59,7 +66,7 @@ const app = Vue.createApp({
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
-          console.log('cart', res);
+          // console.log('cart', res);
           this.cartData = res.data.data;
         })
         .catch((err) => {
