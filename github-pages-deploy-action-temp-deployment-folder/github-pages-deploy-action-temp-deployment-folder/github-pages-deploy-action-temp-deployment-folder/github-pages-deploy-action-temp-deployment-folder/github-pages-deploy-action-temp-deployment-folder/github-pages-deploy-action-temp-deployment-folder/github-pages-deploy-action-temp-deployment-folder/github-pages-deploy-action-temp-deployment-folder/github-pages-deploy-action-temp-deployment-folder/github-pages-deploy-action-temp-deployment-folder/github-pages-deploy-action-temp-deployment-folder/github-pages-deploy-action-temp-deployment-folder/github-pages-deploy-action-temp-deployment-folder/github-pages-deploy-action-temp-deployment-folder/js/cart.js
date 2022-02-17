@@ -67,6 +67,23 @@ const app = createApp({
           console.error(err.response);
         });
     },
+
+    // 移除購物車
+    removeCartItem(id) {
+      const apiUrl = `/v2/api/${apiPath}/cart/${id}`;
+
+      this.isLoadingItem = id;
+      axios
+        .delete(`${site}${apiUrl}`, {})
+        .then((res) => {
+          // console.log('removeCartItem', res);
+          this.getCart();
+          this.isLoadingItem = '';
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
+    },
   },
   mounted() {
     this.getProducts();
