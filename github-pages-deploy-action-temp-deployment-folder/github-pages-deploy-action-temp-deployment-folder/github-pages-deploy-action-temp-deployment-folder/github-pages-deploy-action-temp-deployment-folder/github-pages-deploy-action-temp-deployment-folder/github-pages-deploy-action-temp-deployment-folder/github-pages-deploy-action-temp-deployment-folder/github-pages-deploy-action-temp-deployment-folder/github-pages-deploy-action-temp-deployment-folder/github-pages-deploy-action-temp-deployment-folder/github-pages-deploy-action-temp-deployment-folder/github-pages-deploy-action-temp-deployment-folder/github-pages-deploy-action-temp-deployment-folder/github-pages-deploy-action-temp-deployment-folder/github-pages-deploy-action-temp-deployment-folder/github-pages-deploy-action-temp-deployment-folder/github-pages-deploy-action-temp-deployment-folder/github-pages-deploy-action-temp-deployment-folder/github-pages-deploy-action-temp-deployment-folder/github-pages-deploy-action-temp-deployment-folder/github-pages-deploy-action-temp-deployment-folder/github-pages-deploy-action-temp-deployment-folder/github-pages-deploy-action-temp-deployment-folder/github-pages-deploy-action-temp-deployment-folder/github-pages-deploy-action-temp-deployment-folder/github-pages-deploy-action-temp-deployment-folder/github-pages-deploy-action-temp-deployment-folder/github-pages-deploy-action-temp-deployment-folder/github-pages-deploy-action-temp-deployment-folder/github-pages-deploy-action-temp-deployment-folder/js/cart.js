@@ -5,9 +5,7 @@ const api_path = 'steve-vue';
 
 const app = createApp({
   data() {
-    return {
-      cartData: {},
-    };
+    return {};
   },
 });
 
