@@ -111,7 +111,7 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          console.log('addToCart', res);
+          // console.log('addToCart', res);
           this.getCart();
           this.$refs.productModal.closeModal(); // 加入購物車後，關閉 modal
           this.isLoadingItem = '';

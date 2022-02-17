@@ -32,6 +32,7 @@ const app = Vue.createApp({
       cartData: {}, // cart 是拿整包資料
       products: [],
       productId: '',
+      productQty: '',
       isLoadingItem: '',
     };
   },
@@ -55,8 +56,15 @@ const app = Vue.createApp({
           console.error(err.response);
         });
     },
+
     openProductModal(id) {
       this.productId = id;
+      const prodAry = this.cartData.carts.filter((cart) => {
+        // console.log(cart.qty);
+        console.log(cart.product_id);
+        return cart;
+      });
+      console.log(prodAry[0].qty);
       this.$refs.productModal.openModal();
     },
 
@@ -150,7 +158,7 @@ const app = Vue.createApp({
 
 // product modal, $refs
 app.component('product-modal', {
-  props: ['id'], // 取得 來自外層的 id
+  props: ['id', 'prodQty'], // 取得 來自外層的 id
   template: '#userProductModal',
   data() {
     return {
@@ -166,6 +174,9 @@ app.component('product-modal', {
       this.clearSingleProduct(); // 先清空，再取得該商品資料，避免彈出時還有舊圖片
       this.getProduct();
       // console.log(`val:${val}`, `oldVal:${oldVal}`);
+    },
+    prodQty() {
+      this.qty = this.prodQty;
     },
   },
   methods: {
@@ -186,7 +197,7 @@ app.component('product-modal', {
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.product = res.data.product;
         })
         .catch((err) => {
