@@ -1,0 +1,20 @@
+{
+  "name": "vue22sprw2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^8.4.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-organize-attributes": "^0.0.4"
+  }
+}
