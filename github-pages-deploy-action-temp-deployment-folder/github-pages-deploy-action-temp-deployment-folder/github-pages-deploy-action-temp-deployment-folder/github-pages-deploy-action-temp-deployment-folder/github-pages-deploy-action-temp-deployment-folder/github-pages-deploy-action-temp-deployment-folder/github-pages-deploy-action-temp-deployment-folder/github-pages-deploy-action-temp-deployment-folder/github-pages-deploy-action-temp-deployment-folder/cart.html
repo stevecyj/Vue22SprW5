@@ -19,6 +19,7 @@
     />
 
     <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@5/dist/vue-loading.css" rel="stylesheet" />
+    <link href="./css/loading.css" rel="stylesheet" />
   </head>
   <body>
     <div id="app">
@@ -90,7 +91,16 @@
           </div>
           <!-- vue-loading-overlay start -->
           <div class="vld-parent">
-            <v-loading :can-cancel="true" :is-full-page="fullPage" v-model:active="isLoading" />
+            <v-loading :can-cancel="true" :is-full-page="fullPage" v-model:active="isLoading">
+              <div class="loadingio-spinner-double-ring-56cpbl7wbmq">
+                <div class="ldio-8kxdxuphs6j">
+                  <div></div>
+                  <div></div>
+                  <div><div></div></div>
+                  <div><div></div></div>
+                </div>
+              </div>
+            </v-loading>
           </div>
           <!-- vue-loading-overlay end -->
           <!-- {{cartData}} -->
