@@ -195,7 +195,7 @@ const app = Vue.createApp({
     // validate rule for phone
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
-      return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+      return phoneNumber.test(value) ? true : '請填寫正確的手機號碼';
     },
 
     // alert message success，sweet alert
