@@ -10,6 +10,7 @@ const app = createApp({
     return {
       cartData: {},
       products: [],
+      productId: '',
     };
   },
   methods: {
@@ -25,7 +26,8 @@ const app = createApp({
           console.error(err.response);
         });
     },
-    openProductModal() {
+    openProductModal(id) {
+      this.productId = id;
       this.$refs.productModal.openModal();
     },
   },
@@ -36,6 +38,7 @@ const app = createApp({
 
 // product modal, $refs
 app.component('product-modal', {
+  props: ['id'],
   template: '#userProductModal',
   data() {
     return {

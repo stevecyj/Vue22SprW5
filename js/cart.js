@@ -37,11 +37,20 @@ const app = Vue.createApp({
     return {
       cartData: {}, // cart 是拿整包資料
       products: [],
+      form: {
+        user: {
+          name: '',
+          email: '',
+          tel: '',
+          address: '',
+        },
+        message: '',
+      },
       productId: '',
       productQty: 'aaaa',
-      isLoadingItem: '',
-      isLoading: false,
-      fullPage: true,
+      isLoadingItem: '', // bootstrap loading
+      isLoading: false, // vue-overlay loading
+      fullPage: true, // vue-overlay fullPage
     };
   },
   computed: {
@@ -183,6 +192,27 @@ const app = Vue.createApp({
         .delete(`${site}${apiUrl}`)
         .then((res) => {
           // console.log('clearCarts', res);
+          this.alertSuccess(res.data.message);
+          this.getCart();
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          console.error(err.response);
+        });
+    },
+
+    // 送出訂單
+    submitOrder() {
+      const apiUrl = `/v2/api/${apiPath}/order`;
+      const data = this.form;
+      this.isLoading = true;
+      axios
+        .post(`${site}${apiUrl}`, {
+          data,
+        })
+        .then((res) => {
+          // console.log('submitOrder', res);
           this.alertSuccess(res.data.message);
           this.getCart();
           this.isLoading = false;

@@ -74,12 +74,12 @@ const app = Vue.createApp({
       this.productId = id;
       const obj = this.cartData;
       console.log(obj.carts);
-      const prodAry = this.cartData.carts.filter(
-        (cart) => console.log(cart.qty, cart.product_id, this.productId)
+      const prodAry = this.cartData.carts.filter((cart) => {
+        console.log(cart.qty, cart.product_id, this.productId);
         // console.log(cart.product_id, this.productId);
-        // cart.product_id === this.productId
-      );
-      // console.log(prodAry);
+        return cart.product_id === this.productId;
+      });
+      console.log(prodAry[0].qty);
       // this.productQty = prodAry[0].qty;
       this.$refs.productModal.openModal();
     },

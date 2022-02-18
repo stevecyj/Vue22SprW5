@@ -149,7 +149,7 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          console.log('updateCartItem', item.id, res.data.data);
+          // console.log('updateCartItem', item.id, res.data.data);
           this.getCart();
           this.isLoadingItem = '';
         })

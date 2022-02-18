@@ -72,10 +72,22 @@ app.component('product-modal', {
           console.error(err.response);
         });
     },
+
+    // 清除單筆資料
+    clearSingleProduct() {
+      this.product = {};
+    },
   },
   mounted() {
     this.modal = new bootstrap.Modal(this.$refs.modal, {
       keyboard: false,
+    });
+
+    // modal 關閉事件
+    // console.log(this.$refs.modal);
+    this.$refs.modal.addEventListener('hidden.bs.modal', (event) => {
+      this.clearSingleProduct(); // ∵ modal 關閉時資料還在，∴ modal 關閉時清空資料
+      console.log('close productModal');
     });
 
     // test modal is usable or not

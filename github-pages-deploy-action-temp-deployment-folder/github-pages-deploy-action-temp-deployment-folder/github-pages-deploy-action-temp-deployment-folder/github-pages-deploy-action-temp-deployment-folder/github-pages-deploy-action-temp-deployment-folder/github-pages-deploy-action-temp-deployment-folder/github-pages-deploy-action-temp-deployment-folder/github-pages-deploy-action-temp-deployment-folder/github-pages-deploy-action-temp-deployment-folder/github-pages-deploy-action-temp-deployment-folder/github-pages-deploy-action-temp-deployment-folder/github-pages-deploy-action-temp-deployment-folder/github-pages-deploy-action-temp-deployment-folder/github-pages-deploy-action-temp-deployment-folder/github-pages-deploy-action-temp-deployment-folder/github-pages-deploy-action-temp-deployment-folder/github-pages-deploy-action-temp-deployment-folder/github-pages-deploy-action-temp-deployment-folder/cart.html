@@ -23,7 +23,12 @@
       <div class="container">
         <div class="mt-4">
           <!-- 產品Modal -->
-          <product-modal :id="productId" @add-cart="addToCart" ref="productModal"></product-modal>
+          <product-modal
+            :id="productId"
+            :prod-qty="productQty"
+            @add-cart="addToCart"
+            ref="productModal"
+          ></product-modal>
           <!-- 產品Modal -->
 
           <table class="table align-middle">
@@ -222,7 +227,7 @@
         </div>
       </div>
     </div>
-    <!-- userProduct Modal start -->
+    <!-- user ProductModal start -->
     <script id="userProductModal" type="text/x-template">
       <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
@@ -260,7 +265,7 @@
             </div>
             </div>
     </script>
-    <!-- userProduct Modal end -->
+    <!-- user ProductModal end -->
     <!-- JavaScript Bundle with Popper -->
     <script
       crossorigin="anonymous"
@@ -274,6 +279,7 @@
     ></script>
     <script src="https://unpkg.com/vue@next"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script> -->
+    <script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.3.6/vee-validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.3.6/dist/vee-validate-rules.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.3.6/dist/vee-validate-i18n.min.js"></script>
