@@ -33,12 +33,7 @@
       <div class="container">
         <div class="mt-4">
           <!-- 產品Modal -->
-          <product-modal
-            :id="productId"
-            :prod-qty="productQty"
-            @add-cart="addToCart"
-            ref="productModal"
-          ></product-modal>
+          <product-modal :id="productId" @add-cart="addToCart" ref="productModal"></product-modal>
           <!-- 產品Modal -->
 
           <table class="table align-middle">
@@ -174,7 +169,7 @@
         </div>
         <div class="my-5 row justify-content-center">
           <!-- form start -->
-          <v-form class="col-md-6" ref="form" v-slot="{ errors }">
+          <v-form @submit="submitOrder" class="col-md-6" ref="form" v-slot="{ errors }">
             <!-- test error message -->
             <!-- <span style="color: red">{{ errors }}</span> -->
             <div class="mb-3">
