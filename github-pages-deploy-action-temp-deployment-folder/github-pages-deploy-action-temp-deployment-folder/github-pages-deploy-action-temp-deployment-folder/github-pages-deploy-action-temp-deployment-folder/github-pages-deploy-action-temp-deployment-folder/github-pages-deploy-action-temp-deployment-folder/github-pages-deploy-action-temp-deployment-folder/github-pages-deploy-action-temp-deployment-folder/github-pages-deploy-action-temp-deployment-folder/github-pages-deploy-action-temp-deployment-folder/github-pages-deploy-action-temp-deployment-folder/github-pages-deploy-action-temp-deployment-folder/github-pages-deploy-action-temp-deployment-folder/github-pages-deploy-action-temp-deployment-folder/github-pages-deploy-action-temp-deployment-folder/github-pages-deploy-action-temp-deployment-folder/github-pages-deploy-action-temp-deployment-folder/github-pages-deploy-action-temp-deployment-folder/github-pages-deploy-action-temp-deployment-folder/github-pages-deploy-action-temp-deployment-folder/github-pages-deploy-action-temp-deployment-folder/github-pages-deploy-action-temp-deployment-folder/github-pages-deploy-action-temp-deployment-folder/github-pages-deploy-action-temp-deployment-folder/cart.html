@@ -142,7 +142,10 @@
           </table>
         </div>
         <div class="my-5 row justify-content-center">
-          <!-- <v-form class="col-md-6" ref="form" v-slot="{ errors }">
+          <!-- form start -->
+          <v-form class="col-md-6" ref="form" v-slot="{ errors }">
+            <!-- test error message -->
+            <!-- <span style="color: red">{{ errors }}</span> -->
             <div class="mb-3">
               <label class="form-label" for="email">Email</label>
               <v-field
@@ -151,6 +154,7 @@
                 id="email"
                 name="email"
                 placeholder="請輸入 Email"
+                rules="email|required"
                 type="email"
               ></v-field>
               <error-message class="invalid-feedback" name="email"></error-message>
@@ -174,11 +178,12 @@
               <label class="form-label" for="tel">收件人電話</label>
               <v-field
                 :class="{ 'is-invalid': errors['電話'] }"
+                :rules="isPhone"
                 class="form-control"
                 id="tel"
                 name="電話"
                 placeholder="請輸入電話"
-                type="text"
+                type="tel"
               ></v-field>
               <error-message class="invalid-feedback" name="電話"></error-message>
             </div>
@@ -202,9 +207,18 @@
               <textarea class="form-control" cols="30" id="message" rows="10"></textarea>
             </div>
             <div class="text-end">
-              <button class="btn btn-danger" type="submit">送出訂單</button>
+              <!-- {{Object.keys(errors).length}} -->
+              <!-- 逆天可選運算子 -->
+              <button
+                :class="{'disabled': this.cartData.carts?.length === 0 || Object.keys(errors).length !==0 }"
+                class="btn btn-danger"
+                type="submit"
+              >
+                送出訂單
+              </button>
             </div>
-          </v-form> -->
+          </v-form>
+          <!-- form end -->
         </div>
       </div>
     </div>
@@ -258,6 +272,11 @@
       integrity="sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=="
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"
     ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.3.6/vee-validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.3.6/dist/vee-validate-rules.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.3.6/dist/vee-validate-i18n.min.js"></script>
     <script src="./js/cart.js" type="module"></script>
   </body>
 </html>

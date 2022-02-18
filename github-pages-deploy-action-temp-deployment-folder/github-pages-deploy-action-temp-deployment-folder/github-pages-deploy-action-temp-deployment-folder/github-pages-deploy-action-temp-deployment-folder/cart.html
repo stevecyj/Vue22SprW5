@@ -187,6 +187,7 @@
                 placeholder="請輸入 Email"
                 rules="email|required"
                 type="email"
+                v-model="form.user.email"
               ></v-field>
               <error-message class="invalid-feedback" name="email"></error-message>
             </div>
@@ -201,6 +202,7 @@
                 placeholder="請輸入姓名"
                 rules="required"
                 type="text"
+                v-model="form.user.name"
               ></v-field>
               <error-message class="invalid-feedback" name="姓名"></error-message>
             </div>
@@ -215,6 +217,7 @@
                 name="phone"
                 placeholder="請輸入手機(手機09XXXXXXXX，10位數字)"
                 type="tel"
+                v-model="form.user.tel"
               ></v-field>
               <error-message class="invalid-feedback" name="phone"></error-message>
             </div>
@@ -229,13 +232,14 @@
                 placeholder="請輸入地址"
                 rules="required"
                 type="text"
+                v-model="form.user.address"
               ></v-field>
               <error-message class="invalid-feedback" name="地址"></error-message>
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="message">留言</label>
-              <textarea class="form-control" cols="30" id="message" rows="10"></textarea>
+              <textarea class="form-control" cols="30" id="message" rows="10" v-model="form.message"></textarea>
             </div>
             <div class="text-end">
               <!-- {{Object.keys(errors).length}} -->
