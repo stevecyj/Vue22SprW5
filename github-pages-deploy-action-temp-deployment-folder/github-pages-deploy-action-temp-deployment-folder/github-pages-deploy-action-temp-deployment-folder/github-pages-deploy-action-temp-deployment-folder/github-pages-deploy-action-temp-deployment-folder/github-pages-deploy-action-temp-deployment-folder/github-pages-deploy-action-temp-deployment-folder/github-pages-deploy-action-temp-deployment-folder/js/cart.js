@@ -3,6 +3,8 @@
 // import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
 // 之前使用不同的 vue instance
 
+import spinner from './spinner.js';
+
 const site = 'https://vue3-course-api.hexschool.io';
 const apiPath = 'steve-vue';
 
@@ -27,6 +29,9 @@ VeeValidate.configure({
 });
 
 const app = Vue.createApp({
+  components: {
+    spinner,
+  },
   data() {
     return {
       cartData: {}, // cart 是拿整包資料
@@ -80,13 +85,16 @@ const app = Vue.createApp({
     // 取得購物車資料
     getCart() {
       const apiUrl = `/v2/api/${apiPath}/cart`;
+      // this.isLoading = true;
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
           // console.log('cart', res);
           this.cartData = res.data.data;
+          // this.isLoading = false;
         })
         .catch((err) => {
+          // this.isLoading = false;
           console.error(err.response);
         });
     },

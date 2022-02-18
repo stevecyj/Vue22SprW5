@@ -208,15 +208,15 @@
             <div class="mb-3">
               <label class="form-label" for="tel">收件人電話</label>
               <v-field
-                :class="{ 'is-invalid': errors['電話'] }"
+                :class="{ 'is-invalid': errors['phone'] }"
                 :rules="isPhone"
                 class="form-control"
                 id="tel"
-                name="電話"
-                placeholder="請輸入電話(09XXXXXXXX，10位數字)"
+                name="phone"
+                placeholder="請輸入手機(手機09XXXXXXXX，10位數字)"
                 type="tel"
               ></v-field>
-              <error-message class="invalid-feedback" name="電話"></error-message>
+              <error-message class="invalid-feedback" name="phone"></error-message>
             </div>
 
             <div class="mb-3">

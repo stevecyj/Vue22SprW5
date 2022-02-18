@@ -142,7 +142,7 @@ const app = Vue.createApp({
     updateCartItem(item) {
       const apiUrl = `/v2/api/${apiPath}/cart/${item.id}`; // 這裡從整包物件裡拿 id(cart id)
       const data = {
-        product_id: item.id, // product id
+        product_id: item.product_id, // product id
         qty: item.qty,
       };
       this.isLoadingItem = item.id;

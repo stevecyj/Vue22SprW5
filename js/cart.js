@@ -4,7 +4,7 @@
 // 之前使用不同的 vue instance
 
 // eslint-disable-next-line
-import spinner from './spinner.js';
+import spinner from './components/spinner.js';
 
 const site = 'https://vue3-course-api.hexschool.io';
 const apiPath = 'steve-vue';
