@@ -145,7 +145,8 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           this.isLoadingItem = '';
-          console.error(err);
+          // console.error(err);
+          this.alertError(err.data.message);
         });
     },
 

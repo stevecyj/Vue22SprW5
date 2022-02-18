@@ -37,6 +37,7 @@ const app = Vue.createApp({
     return {
       cartData: {}, // cart 是拿整包資料
       products: [],
+      productId: '',
       form: {
         user: {
           name: '',
@@ -46,8 +47,6 @@ const app = Vue.createApp({
         },
         message: '',
       },
-      productId: '',
-      productQty: 'aaaa',
       isLoadingItem: '', // bootstrap loading
       isLoading: false, // vue-overlay loading
       fullPage: true, // vue-overlay fullPage
@@ -59,17 +58,6 @@ const app = Vue.createApp({
     //     disabled: this.cartData.carts?.length === 0 || Object.keys(errors).length !== 0, // 逆天可選鍊運算子
     //   };
     // },
-
-    // check more
-    singleItem() {
-      const prodAry = this.cartData.carts.filter(
-        (cart) =>
-          // console.log(cart.qty);
-          // console.log(cart.product_id, this.productId);
-          cart.product_id === this.productId
-      );
-      return prodAry[0].qty;
-    },
   },
   methods: {
     getProducts() {
@@ -91,8 +79,6 @@ const app = Vue.createApp({
 
     openProductModal(id) {
       this.productId = id;
-
-      // this.productQty = prodAry[0].qty;
       this.$refs.productModal.openModal();
     },
 
@@ -109,7 +95,8 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           // this.isLoading = false;
-          console.error(err.response);
+          // console.error(err.data.message);
+          this.alertError(err.data.message);
         });
     },
 
@@ -134,8 +121,8 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           this.isLoadingItem = '';
-          // console.error(err.data.message[0]);
-          this.alertError(err.data.message[0]);
+          // console.error(err.data.message);
+          this.alertError(err.data.message);
         });
     },
 
@@ -179,7 +166,8 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           this.isLoadingItem = '';
-          console.error(err.response);
+          // console.error(err.data.message);
+          this.alertError(err.data.message);
         });
     },
 
@@ -198,7 +186,8 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           this.isLoading = false;
-          console.error(err.response);
+          // console.error(err.data.message);
+          this.alertError(err.data.message);
         });
     },
 
@@ -212,14 +201,16 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          // console.log('submitOrder', res);
+          console.log('submitOrder', res);
+          this.$refs.form.resetForm();
           this.alertSuccess(res.data.message);
           this.getCart();
           this.isLoading = false;
         })
         .catch((err) => {
           this.isLoading = false;
-          console.error(err.response);
+          // console.error(err.data.message);
+          this.alertError(err.data.message);
         });
     },
 

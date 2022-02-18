@@ -169,10 +169,12 @@ const app = Vue.createApp({
         .delete(`${site}${apiUrl}`)
         .then((res) => {
           // console.log('clearCarts', res);
+          this.alertSuccess(res.data.message);
           this.getCart();
           this.isLoading = false;
         })
         .catch((err) => {
+          this.isLoading = false;
           console.error(err.response);
         });
     },

@@ -150,10 +150,12 @@ const app = Vue.createApp({
         })
         .then((res) => {
           // console.log('updateCartItem', item.id, res.data.data);
+          this.alertSuccess(res.data.message);
           this.getCart();
           this.isLoadingItem = '';
         })
         .catch((err) => {
+          this.isLoadingItem = '';
           console.error(err.response);
         });
     },
