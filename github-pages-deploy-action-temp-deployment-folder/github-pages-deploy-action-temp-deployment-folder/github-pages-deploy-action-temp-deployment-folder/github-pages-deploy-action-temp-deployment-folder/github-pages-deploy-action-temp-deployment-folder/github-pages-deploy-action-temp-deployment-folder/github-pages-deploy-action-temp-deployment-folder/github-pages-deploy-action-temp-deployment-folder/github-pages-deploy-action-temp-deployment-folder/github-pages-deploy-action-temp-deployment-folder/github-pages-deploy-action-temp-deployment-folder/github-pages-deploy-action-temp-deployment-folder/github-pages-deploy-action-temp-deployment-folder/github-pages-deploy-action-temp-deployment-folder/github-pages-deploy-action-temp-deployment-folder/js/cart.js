@@ -1,4 +1,4 @@
-/* global axios bootstrap VeeValidate VeeValidateRules VeeValidateI18n Vue VueLoading */
+/* global axios bootstrap VeeValidate VeeValidateRules VeeValidateI18n Vue VueLoading Swal */
 // eslint-disable-next-line
 // import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js';
 // 之前使用不同的 vue instance
@@ -74,12 +74,7 @@ const app = Vue.createApp({
       this.productId = id;
       const obj = this.cartData;
       console.log(obj.carts);
-      const prodAry = this.cartData.carts.filter((cart) => {
-        console.log(cart.qty, cart.product_id, this.productId);
-        // console.log(cart.product_id, this.productId);
-        return cart.product_id === this.productId;
-      });
-      console.log(prodAry[0].qty);
+
       // this.productQty = prodAry[0].qty;
       this.$refs.productModal.openModal();
     },
@@ -111,7 +106,8 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          // console.log('addToCart', res);
+          console.log('addToCart', res);
+          this.alertSuccess(res.data.message);
           this.getCart();
           this.$refs.productModal.closeModal(); // 加入購物車後，關閉 modal
           this.isLoadingItem = '';
@@ -181,6 +177,15 @@ const app = Vue.createApp({
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/;
       return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+    },
+
+    // alert message，sweet alert
+    alertSuccess(msg) {
+      Swal.fire({
+        icon: 'success',
+        title: msg,
+        // text: 'Something went wrong!',
+      });
     },
   },
   mounted() {
