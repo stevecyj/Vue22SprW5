@@ -113,7 +113,9 @@ const app = Vue.createApp({
           this.isLoadingItem = '';
         })
         .catch((err) => {
-          console.error(err.response);
+          this.isLoadingItem = '';
+          // console.error(err.data.message[0]);
+          this.alertError(err.data.message[0]);
         });
     },
 
@@ -179,10 +181,27 @@ const app = Vue.createApp({
       return phoneNumber.test(value) ? true : '需要正確的電話號碼';
     },
 
-    // alert message，sweet alert
+    // alert message success，sweet alert
     alertSuccess(msg) {
-      Swal.fire({
+      const swalSuccess = Swal.mixin({
+        color: '#198754',
+        confirmButtonColor: '#dc3545',
+      });
+      swalSuccess.fire({
         icon: 'success',
+        title: msg,
+        // text: 'Something went wrong!',
+      });
+    },
+
+    // alert message error，sweet alert
+    alertError(msg) {
+      const swalError = Swal.mixin({
+        color: '#495371',
+        confirmButtonColor: '#dc3545',
+      });
+      swalError.fire({
+        icon: 'error',
         title: msg,
         // text: 'Something went wrong!',
       });

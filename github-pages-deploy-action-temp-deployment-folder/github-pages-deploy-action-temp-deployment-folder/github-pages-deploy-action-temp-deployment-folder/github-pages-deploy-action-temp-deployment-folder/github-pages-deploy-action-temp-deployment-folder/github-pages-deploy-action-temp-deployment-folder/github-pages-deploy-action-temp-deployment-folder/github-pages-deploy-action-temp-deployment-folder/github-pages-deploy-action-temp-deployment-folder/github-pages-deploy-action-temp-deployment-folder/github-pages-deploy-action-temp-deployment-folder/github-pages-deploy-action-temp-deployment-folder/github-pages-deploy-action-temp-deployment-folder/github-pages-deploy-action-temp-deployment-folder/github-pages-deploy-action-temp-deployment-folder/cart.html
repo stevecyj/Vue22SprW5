@@ -17,6 +17,8 @@
       integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
       rel="stylesheet"
     />
+
+    <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@5/dist/vue-loading.css" rel="stylesheet" />
   </head>
   <body>
     <div id="app">
@@ -86,7 +88,11 @@
               清空購物車
             </button>
           </div>
-
+          <!-- vue-loading-overlay start -->
+          <div class="vld-parent">
+            <v-loading :can-cancel="true" :is-full-page="fullPage" v-model:active="isLoading" />
+          </div>
+          <!-- vue-loading-overlay end -->
           <!-- {{cartData}} -->
           <table class="table align-middle">
             <thead>
@@ -281,12 +287,14 @@
       integrity="sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=="
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"
     ></script>
-    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
     <script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.3.6/vee-validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.3.6/dist/vee-validate-rules.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.3.6/dist/vee-validate-i18n.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@5"></script>
     <script src="./js/cart.js" type="module"></script>
   </body>
 </html>

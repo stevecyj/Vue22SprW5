@@ -32,7 +32,7 @@ const app = Vue.createApp({
       cartData: {}, // cart 是拿整包資料
       products: [],
       productId: '',
-      productQty: '',
+      productQty: 'aaaa',
       isLoadingItem: '',
     };
   },
@@ -42,6 +42,17 @@ const app = Vue.createApp({
     //     disabled: this.cartData.carts?.length === 0 || Object.keys(errors).length !== 0, // 逆天可選鍊運算子
     //   };
     // },
+
+    // check more
+    singleItem() {
+      const prodAry = this.cartData.carts.filter(
+        (cart) =>
+          // console.log(cart.qty);
+          // console.log(cart.product_id, this.productId);
+          cart.product_id === this.productId
+      );
+      return prodAry[0].qty;
+    },
   },
   methods: {
     getProducts() {
@@ -59,12 +70,15 @@ const app = Vue.createApp({
 
     openProductModal(id) {
       this.productId = id;
-      const prodAry = this.cartData.carts.filter((cart) => {
-        // console.log(cart.qty);
-        console.log(cart.product_id);
-        return cart;
-      });
-      console.log(prodAry[0].qty);
+      const obj = this.cartData;
+      console.log(obj.carts);
+      const prodAry = this.cartData.carts.filter(
+        (cart) => console.log(cart.qty, cart.product_id, this.productId)
+        // console.log(cart.product_id, this.productId);
+        // cart.product_id === this.productId
+      );
+      // console.log(prodAry);
+      // this.productQty = prodAry[0].qty;
       this.$refs.productModal.openModal();
     },
 
@@ -135,7 +149,7 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          // console.log('addToCart', res);
+          console.log('updateCartItem', item.id, res.data.data);
           this.getCart();
           this.isLoadingItem = '';
         })
@@ -175,9 +189,7 @@ app.component('product-modal', {
       this.getProduct();
       // console.log(`val:${val}`, `oldVal:${oldVal}`);
     },
-    prodQty() {
-      this.qty = this.prodQty;
-    },
+    prodQty() {},
   },
   methods: {
     // 開啟 modal
