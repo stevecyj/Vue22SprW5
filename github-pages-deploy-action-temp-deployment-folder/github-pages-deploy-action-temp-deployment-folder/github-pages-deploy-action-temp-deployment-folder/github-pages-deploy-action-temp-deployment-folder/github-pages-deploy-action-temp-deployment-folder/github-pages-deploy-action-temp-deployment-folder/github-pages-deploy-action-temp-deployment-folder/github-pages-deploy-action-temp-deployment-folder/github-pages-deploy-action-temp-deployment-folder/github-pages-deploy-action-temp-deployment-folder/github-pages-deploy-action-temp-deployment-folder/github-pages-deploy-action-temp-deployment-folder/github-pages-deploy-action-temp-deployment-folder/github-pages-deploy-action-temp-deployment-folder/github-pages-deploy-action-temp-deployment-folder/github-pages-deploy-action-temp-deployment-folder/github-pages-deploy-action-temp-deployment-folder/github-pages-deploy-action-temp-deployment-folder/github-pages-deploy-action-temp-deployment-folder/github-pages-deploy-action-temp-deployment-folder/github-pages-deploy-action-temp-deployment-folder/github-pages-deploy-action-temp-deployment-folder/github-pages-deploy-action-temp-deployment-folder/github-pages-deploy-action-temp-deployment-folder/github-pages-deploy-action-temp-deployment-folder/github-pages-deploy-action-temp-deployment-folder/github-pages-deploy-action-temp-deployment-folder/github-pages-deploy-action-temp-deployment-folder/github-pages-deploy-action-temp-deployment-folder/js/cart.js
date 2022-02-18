@@ -84,6 +84,28 @@ const app = createApp({
           console.error(err.response);
         });
     },
+
+    // 更新購物車, PUT
+    updateCartItem(item) {
+      const apiUrl = `/v2/api/${apiPath}/cart/${item.id}`;
+      const data = {
+        product_id: item.id,
+        qty: item.qty,
+      };
+      this.isLoadingItem = item.id;
+      axios
+        .put(`${site}${apiUrl}`, {
+          data,
+        })
+        .then((res) => {
+          // console.log('addToCart', res);
+          this.getCart();
+          this.isLoadingItem = '';
+        })
+        .catch((err) => {
+          console.error(err.response);
+        });
+    },
   },
   mounted() {
     this.getProducts();

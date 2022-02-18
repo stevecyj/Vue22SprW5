@@ -10,20 +10,28 @@ export default {
   template: `
             <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
-                    <div class="modal-dialog modal-xl" role="document">
+                      <div class="modal-dialog modal-xl" role="document">
                       <div class="modal-content border-0">
-                        <div class="modal-header bg-dark text-white">
-                          <h5 class="modal-title" id="exampleModalLabel">
-                            <span>{{ product.title }}</span>
-                        </h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <div class="modal-header bg-dark text-white">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                      <span>{{ product.title }}</span>
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      <div class="row">
+                      <div class="col-sm-6 vld-parent">
+                      <!-- vue-loading-overlay start -->
+                        <div class="">
+                          <!-- vue-loading-overlay -->
+                          <v-loading :can-cancel="true" :is-full-page="fullPage" :z-index='zIndex' v-model:active="isLoading">
+                            <spinner></spinner>
+                          </v-loading>
                         </div>
-                        <div class="modal-body">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid" :src="product.imageUrl" alt="">
-                        </div>
-                            <div class="col-sm-6">
+                      <!-- vue-loading-overlay end -->
+                      <img class="img-fluid" :src="product.imageUrl" alt="">
+                      </div>
+                      <div class="col-sm-6">
                               <span class="badge bg-primary rounded-pill">{{  }}</span>
                               <p>商品描述：{{ product.description }}</p>
                               <p>商品內容：{{ product.content }}</p>
@@ -46,6 +54,7 @@ export default {
                         </div>
                         </div>
   `,
+  components: { spinner },
   props: ['id'], // 取得 來自外層的 id
   data() {
     return {
@@ -53,6 +62,9 @@ export default {
       modal: {}, // 讓 methods 可以取用 modal
       product: {},
       qty: 1, // for 調整數量
+      isLoading: true, // vue-overlay loading
+      fullPage: false, // vue-overlay fullPage
+      zIndex: 99999, // vue-overlay zIndex
     };
   },
   watch: {
@@ -77,15 +89,18 @@ export default {
 
     // 在 product modal 取得遠端資料(code snippet from Hakka copy)
     getProduct() {
+      this.isLoading = true;
       // api for 取得單一品項資料
       const apiUrl = `/v2/api/${apiPath}/product/${this.id}`;
       axios
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
           // console.log(res);
+          this.isLoading = false;
           this.product = res.data.product;
         })
         .catch((err) => {
+          this.isLoading = false;
           console.error(err.response);
         });
     },

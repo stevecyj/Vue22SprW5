@@ -61,6 +61,7 @@ const app = createApp({
         .then((res) => {
           console.log('addToCart', res);
           this.getCart();
+          this.$refs.productModal.closeModal(); // 加入購物車後，關閉 modal
           this.isLoadingItem = '';
         })
         .catch((err) => {
@@ -115,24 +116,33 @@ const app = createApp({
 
 // product modal, $refs
 app.component('product-modal', {
-  props: ['id'],
+  props: ['id'], // 取得 來自外層的 id
   template: '#userProductModal',
   data() {
     return {
+      singleItemId: '',
       modal: {}, // 讓 methods 可以取用 modal
       product: {},
+      qty: 1, // for 調整數量
     };
   },
   watch: {
     // id 改變時，取得該商品資料
-    id() {
+    id(val, oldVal) {
+      this.clearSingleProduct(); // 先清空，再取得該商品資料，避免彈出時還有舊圖片
       this.getProduct();
+      // console.log(`val:${val}`, `oldVal:${oldVal}`);
     },
   },
   methods: {
     // 開啟 modal
     openModal() {
       this.modal.show();
+    },
+
+    // 關閉 modal
+    closeModal() {
+      this.modal.hide();
     },
 
     // 在 product modal 取得遠端資料(code snippet from Hakka copy)
@@ -143,7 +153,7 @@ app.component('product-modal', {
         .get(`${site}${apiUrl}`, {})
         .then((res) => {
           console.log(res);
-          // this.product = res.data.product;
+          this.product = res.data.product;
         })
         .catch((err) => {
           console.error(err.response);
@@ -154,6 +164,12 @@ app.component('product-modal', {
     clearSingleProduct() {
       this.product = {};
     },
+
+    // productModal 裡的加入購物車，外層已經有了，使用外層的 addToCart
+    addToCart() {
+      // console.log(this.qty, this.product.id);
+      this.$emit('add-cart', this.product.id, this.qty);
+    },
   },
   mounted() {
     this.modal = new bootstrap.Modal(this.$refs.modal, {
@@ -162,10 +178,10 @@ app.component('product-modal', {
 
     // modal 關閉事件
     // console.log(this.$refs.modal);
-    this.$refs.modal.addEventListener('hidden.bs.modal', (event) => {
-      this.clearSingleProduct(); // ∵ modal 關閉時資料還在，∴ modal 關閉時清空資料
-      console.log('close productModal');
-    });
+    // this.$refs.modal.addEventListener('hidden.bs.modal', (event) => {
+    //   this.clearSingleProduct(); // ∵ modal 關閉時資料還在，∴ modal 關閉時清空資料
+    //   console.log('close productModal');
+    // });
 
     // test modal is usable or not
     // myModal.show();
