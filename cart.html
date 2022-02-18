@@ -99,15 +99,8 @@
           <!-- vue-loading-overlay start -->
           <div class="vld-parent">
             <v-loading :can-cancel="true" :is-full-page="fullPage" v-model:active="isLoading">
+              <!-- vue-loading-overlay -->
               <spinner></spinner>
-              <!-- <div class="loadingio-spinner-double-ring-56cpbl7wbmq">
-                <div class="ldio-8kxdxuphs6j">
-                  <div></div>
-                  <div></div>
-                  <div><div></div></div>
-                  <div><div></div></div>
-                </div>
-              </div> -->
             </v-loading>
           </div>
           <!-- vue-loading-overlay end -->
@@ -132,7 +125,7 @@
                   </td>
                   <td>
                     {{ item.product.title }}
-                    <div class="text-success">已套用優惠券</div>
+                    <div class="text-success" v-if="item.coupon">已套用優惠券</div>
                   </td>
                   <td>
                     <div class="input-group input-group-sm">
@@ -154,8 +147,8 @@
                     </div>
                   </td>
                   <td class="text-end">
-                    <small class="text-success">折扣價：</small>
-                    {{ item.total }} 元
+                    <small class="text-success" v-if="cartData.final_total !== cartData.total">折扣價：</small>
+                    {{ cartData.final_total }} 元
                   </td>
                 </tr>
               </template>
@@ -163,11 +156,13 @@
             <tfoot>
               <tr>
                 <td class="text-end" colspan="3">總計</td>
-                <td class="text-end">{{ cartData.total }}</td>
+                <td class="text-end">{{ cartData.total }} 元</td>
               </tr>
               <tr>
-                <td class="text-end text-success" colspan="3">折扣價</td>
-                <td class="text-end text-success">{{ }}</td>
+                <td class="text-end text-success" colspan="3" v-if="cartData.final_total !== cartData.total">折扣價</td>
+                <td class="text-end text-success" v-if="cartData.final_total !== cartData.total">
+                  {{ cartData.final_total }}
+                </td>
               </tr>
             </tfoot>
           </table>
@@ -258,45 +253,7 @@
       </div>
     </div>
     <!-- user ProductModal start -->
-    <script id="userProductModal" type="text/x-template">
-      <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
-          aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
-        <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content border-0">
-            <div class="modal-header bg-dark text-white">
-              <h5 class="modal-title" id="exampleModalLabel">
-                <span>{{ product.title }}</span>
-            </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <img class="img-fluid" :src="product.imageUrl" alt="">
-            </div>
-                <div class="col-sm-6">
-                  <span class="badge bg-primary rounded-pill">{{  }}</span>
-                  <p>商品描述：{{ product.description }}</p>
-                  <p>商品內容：{{ product.content }}</p>
-                  <div class="h5" v-if="product.price===product.origin_price">{{ product.price }} 元</div>
-                  <div v-else>
-                    <del class="h6">原價 {{ product.origin_price }} 元</del>
-                    <div class="h5">現在只要 {{ product.price }} 元</div>
-                  </div>
-                  <div>
-                    <div class="input-group">
-                      <input type="number" class="form-control" min="1" v-model="qty">
-                      <button type="button" class="btn btn-primary" @click="addToCart">加入購物車</button>
-            </div>
-            </div>
-            </div>
-                <!-- col-sm-6 end -->
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-    </script>
+
     <!-- user ProductModal end -->
     <!-- JavaScript Bundle with Popper -->
     <script
