@@ -72,8 +72,6 @@ const app = Vue.createApp({
 
     openProductModal(id) {
       this.productId = id;
-      const obj = this.cartData;
-      console.log(obj.carts);
 
       // this.productQty = prodAry[0].qty;
       this.$refs.productModal.openModal();
@@ -106,7 +104,7 @@ const app = Vue.createApp({
           data,
         })
         .then((res) => {
-          console.log('addToCart', res);
+          // console.log('addToCart', res);
           this.alertSuccess(res.data.message);
           this.getCart();
           this.$refs.productModal.closeModal(); // 加入購物車後，關閉 modal
@@ -128,11 +126,13 @@ const app = Vue.createApp({
         .delete(`${site}${apiUrl}`, {})
         .then((res) => {
           // console.log('removeCartItem', res);
+          this.alertSuccess(res.data.message);
           this.getCart();
           this.isLoadingItem = '';
         })
         .catch((err) => {
-          console.error(err.response);
+          this.isLoadingItem = '';
+          console.error(err);
         });
     },
 

@@ -8,7 +8,7 @@ const apiPath = 'steve-vue';
 const app = createApp({
   data() {
     return {
-      cartData: {},
+      cartData: {}, // cart 是拿整包資料
       products: [],
       productId: '',
       isLoadingItem: '',
@@ -88,9 +88,9 @@ const app = createApp({
 
     // 更新購物車, PUT
     updateCartItem(item) {
-      const apiUrl = `/v2/api/${apiPath}/cart/${item.id}`;
+      const apiUrl = `/v2/api/${apiPath}/cart/${item.id}`; // 這裡從整包物件裡拿 id(cart id)
       const data = {
-        product_id: item.id,
+        product_id: item.id, // product id
         qty: item.qty,
       };
       this.isLoadingItem = item.id;
